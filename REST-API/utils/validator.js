@@ -15,16 +15,18 @@ module.exports = {
         .withMessage('Password should be at least 3 symbols!')
         
     ],
-    post:[
+    article:[
         body('title')
         .notEmpty()
-        .withMessage('Title should not be empty!'),
+        .isLength({min:3})
+        .withMessage('Title should not be empty and at least 3 symbols long!'),
         
     body('description')
     .notEmpty()
     .withMessage('Description should not be empty')
-    .isLength({max:50})
-    .withMessage('Description should bo 50 symbols at maximum!')
+    .isLength({max:100})
+    .isLength({min:20})
+    .withMessage('Description should be between 20 and 100 symbols!')
     ,
     body('imageUrl')
     .notEmpty()

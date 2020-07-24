@@ -1,9 +1,9 @@
-const Post = require("../../models/Post");
+const Article = require("../../models/Article");
 
 module.exports = {
     get: (req, res, next) => {
-        Post.find().populate('author')
-            .then((posts) => res.send(posts))
+        Article.find().populate('author')
+            .then((articles) => res.send(articles))
             .catch(next);
 
     }

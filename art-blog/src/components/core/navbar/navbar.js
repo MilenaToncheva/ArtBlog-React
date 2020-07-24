@@ -1,55 +1,55 @@
 import React, { Component } from 'react';
-import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler } from "mdbreact";
-import { BrowserRouter as Router } from 'react-router-dom';
-//import styles from '../footer/footer.module.css';
+import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem,MDBLink, MDBNavbarToggler } from "mdbreact";
+import { BrowserRouter as Router,Link } from 'react-router-dom';
+import styles from './navbar.module.css';
 class Navbar extends Component {
 
 render() {
   return (
-    <Router>
-      <MDBNavbar color="rgba(255, 152, 0, 0.3) rgba-orange-light" fixed-bottom dark expand="md" >
+    
+      <MDBNavbar className={styles.navbar} light expand="md" >
         <MDBNavbarBrand>
           <strong className="black-text">ArtBlog</strong>
         </MDBNavbarBrand>
         <MDBNavbarToggler onClick={this.toggleCollapse} />
         
           <MDBNavbarNav left>
-            <MDBNavItem active>
-              <MDBNavLink className="black-text" to="#!">Home</MDBNavLink>
+            <MDBNavItem className={styles.item}>
+              <Link className="black-text"  exact to="/">Home</Link>
             </MDBNavItem>
-            <MDBNavItem>
-              <MDBNavLink className="black-text" to="#!">My Articles</MDBNavLink>
+            <MDBNavItem className={styles.item}>
+              <Link className="black-text" to="/article/my-articles">My Articles</Link>
             </MDBNavItem>
-            <MDBNavItem>
-              <MDBNavLink className="black-text" to="#!">Create Article</MDBNavLink>
+            <MDBNavItem className={styles.item}>
+              <Link className="black-text" to="/article/create">Create Article</Link>
             </MDBNavItem>
             
           </MDBNavbarNav>
           <MDBNavbarNav right>
-            <MDBNavItem>
-              <MDBNavLink className="waves-effect waves-light black-text" to="#!">
+            <MDBNavItem className={styles.item}>
+              <Link className="waves-effect waves-light black-text" to="/user/register">
                Register
-              </MDBNavLink>
+              </Link>
             </MDBNavItem>
-            <MDBNavItem>
-              <MDBNavLink className="waves-effect waves-light black-text" to="#!">
+            <MDBNavItem className={styles.item}>
+              <Link className="waves-effect waves-light black-text padding-top:20px" to="/user/login">
                Login
-              </MDBNavLink>
+              </Link>
             </MDBNavItem>
-            <MDBNavItem>
-            <MDBNavLink className="waves-effect waves-light black-text" to="#!">
+            <MDBNavItem className={styles.item}>
+            <Link className="waves-effect waves-light black-text" to="/user/profile/:id">
                <p>Welcome, MT</p>
-              </MDBNavLink>
+              </Link>
             </MDBNavItem>
-            <MDBNavItem>
-            <MDBNavLink className="waves-effect waves-light black-text" to="#!">
+            <MDBNavItem className={styles.item}>
+            <Link className="waves-effect waves-light black-text" to="#!">
                Logout
-              </MDBNavLink>
+              </Link>
             </MDBNavItem>
           </MDBNavbarNav>
         
       </MDBNavbar>
-    </Router>
+    
     );
   }
 }

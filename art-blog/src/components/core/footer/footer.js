@@ -1,16 +1,16 @@
 
 import React from 'react';
-import {  MDBContainer, MDBFooter } from 'mdbreact';
 
+import styles from './footer.module.css';
 const Footer = () => {
   return (
-    <MDBFooter  color="rgba(255, 152 ) rgba-orange-light" className="font-small mt-3 fixed-bottom">
-      <div className="footer-copyright text-center py-3 black-text">
-        <MDBContainer fluid>
+    <footer   className={styles.footer}>
+      <div className={styles.footer}>
+        <div fluid>
         &copy; 2020 Copyright MT
-        </MDBContainer>
+        </div>
       </div>
-    </MDBFooter>
+    </footer>
   );
 }
 

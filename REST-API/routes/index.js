@@ -1,9 +1,9 @@
 const home =require('./home');
-const post=require('./post');
+const article=require('./article');
 const user=require('./user');
 
 module.exports={
     home,
-    post,
+    article,
     user
 }

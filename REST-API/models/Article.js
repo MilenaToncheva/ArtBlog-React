@@ -2,7 +2,7 @@ const mongoose=require('mongoose');
 const{Schema,model:Model}=mongoose;
 const{String,Number,ObjectId,Boolean}=Schema.Types;
 
-const PostSchema=new Schema({
+const ArticleSchema=new Schema({
     title:{
         type:String,
         required:[true,'Please enter the title!'],
@@ -25,4 +25,4 @@ const PostSchema=new Schema({
 
 })
 
-module.exports=new Model('Post', PostSchema);
+module.exports=new Model('Article', ArticleSchema);

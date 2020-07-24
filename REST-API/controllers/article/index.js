@@ -1,36 +1,35 @@
-const Post = require("../../models/Post");
+const Aricle = require("../../models/Article");
 const { validationResult } = require('express-validator');
 const User = require("../../models/User");
 module.exports = {
     get: {
-        getAllPosts: (req, res, next) => {
-            Post.find()
+        getAllArticles: (req, res, next) => {
+            Article.find()
                 .populate('author')
-                .then((posts) => res.send(posts))
+                .then((articles) => res.send(articles))
                 .catch(next)
         },
         getById: (req, res, next) => {
             const id = req.params.id;
-            Post.findOne({ _id: id })
+            Article.findOne({ _id: id })
                 .populate('author')
-                .then((post) => res.send(post))
+                .then((article) => res.send(article))
                 .catch(next)
         
-        },
-
+        }
 
     },
     post: {
-     createPost:(req, res, next)=> {
+     createArticle:async(req, res, next)=> {
             const { title, description, imageUrl } = req.body;
             console.log(req.body);
 
             const author = req.user._id;
 
-            await Post.create({ title, description, imageUrl, isPublic: isPublicc, createdAt, creator });
+            await Article.create({ title, description, imageUrl, isPublic: isPublicc, createdAt, creator });
             res.redirect('/home/');
         },
-        async editPost(req, res, next) {
+         editArticle:async(req, res, next) =>{
             console.log(req.body);
             const _id = req.params._id;
             const { title, description, imageUrl, isPublic: isChecked } = req.body;
@@ -40,7 +39,7 @@ module.exports = {
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
 
-                return res.render('edit-post', {
+                return res.render('edit-article', {
                     isLoggedIn: req.user !== undefined,
                     username: req.user !== undefined ? req.user.username : '',
                     message: errors.array()[0].msg,
@@ -48,7 +47,7 @@ module.exports = {
                 })
             }
 
-            await Post.updateOne({ _id }, { title, description, imageUrl, isPublic: isPublicc });
+            await Article.updateOne({ _id }, { title, description, imageUrl, isPublic: isPublicc });
             res.redirect('/home/');
         }
     }

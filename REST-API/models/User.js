@@ -6,22 +6,27 @@ const saltRound = 13;
 
 
 const UserSchema = new Schema({
-    username: {
+    email: {
         type: String,
-        required: [true,'Username is required!'],
-        unique: [true ,'Username already exists in DB!'],
-        minlength:[3,'Username should be at least 3 symbols!'],
-        match:[/^[a-zA-Z0-9]+$/,'Username should contain only english letters and digits!']
+        required: [true,'email is required!'],
+        unique: [true ,'email already exists in DB!']
+       
+       
+    },
+    authorName:{
+        type:String,
+        required:[true,'Author name is required!'],
+        minlength:[3,'Author name should be at least 3 symbols!']
     },
     password: {
         type: String,
         required:[ true,'Password is required'],
-        minlength:[3,'Username should be at least 3 symbols!'],
+        minlength:[3,'Password should be at least 3 symbols!'],
         match:[/^[a-zA-Z0-9]+$/,'Password should contain only english letters and digits!']
     },
-    Posts: [{
+    Articles: [{
         type: ObjectId,
-        ref: 'Post'
+        ref: 'Article'
     }]
 })
 UserSchema.methods = {

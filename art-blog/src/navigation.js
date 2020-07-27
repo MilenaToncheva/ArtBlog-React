@@ -13,7 +13,7 @@ const Navigation=()=>{
                 <Route path="/" exact component ={React.lazy(()=>(isLoggedIn ?
                                                  import('./pages/home/home.js') :
                                                  import('./pages/public-home/public-home.js')))}/>
-                
+                                                 
                 <Route path="/user/register"component={React.lazy(()=>import('./pages/register/register.js'))}/>
                 <Route path="/user/login"component={React.lazy(()=>import('./pages/login/login.js'))}/>
                 <Route path="/article/create" component={React.lazy(()=>import('./pages/article/create/create-article.js'))}/>

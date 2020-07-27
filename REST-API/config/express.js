@@ -6,7 +6,9 @@ const {path}=require('path');
 
 
 module.exports=(app)=>{
-    app.use(cors());
+    app.use(cors({
+        exposedHeaders: 'Authorization'
+      }));
     app.use(express.json());
     
    

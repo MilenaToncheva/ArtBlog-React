@@ -16,14 +16,13 @@ class Create extends Component {
             descriptionErrorMessage: 'Description should be between 20 and 100 symbols!',
             authorName: '',
             authorNameError: false,
-            authorNameErrorMessage: 'Invalid name. The name should be at least 3 characters long!',
-            btnDisabled: false,
+            authorNameErrorMessage: 'Invalid name. The name should be at least 3 characters long!'
             //authorId: ''//todo
         }
     }
 
     titleBlurHandler = (event) => {
-        const title = event.target.value;
+        const {title} = this.state;
         if (title.length < 3) {
             this.setState({ titleError: true });
             return;
@@ -36,20 +35,25 @@ class Create extends Component {
         this.setState({ title: event.target.value });
     }
     imageUrlBlurHandler = (event) => {
-        const imageUrl = event.target.value;
+        const {imageUrl} = this.state;
         console.log('imageUrl', imageUrl);
         if (!imageUrl.startsWith('http:') && !imageUrl.startsWith('https:')) {
-            this.setState({ imageUrlError: true });
+            this.setState({
+                imageUrlError: true
+            });
+
             return;
         } else if (this.state.imageUrlError === true) {
-            this.setState({ imageUrlError: false });
+            this.setState({
+                imageUrlError: false
+            });
         }
     }
     imageUrlChangeHandler = (event) => {
         this.setState({ imageUrl: event.target.value });
     }
     descriptionBlurHandler = (event) => {
-        const description = event.target.value;
+        const {description} =this.state;
         if (description.length < 20 || description.length > 100) {
             this.setState({ descriptionError: true });
             return;
@@ -62,7 +66,7 @@ class Create extends Component {
     }
 
     authorNameBlurHandler = (event) => {
-        const authorName = event.target.value;
+        const {authorName} = this.state;
         if (authorName.length < 3) {
             this.setState({ authorNameError: true });
             return;
@@ -75,19 +79,13 @@ class Create extends Component {
     }
     submitHandler = (event) => {
         event.preventDefault();
-        
-        const { title, imageUrl, description,authorName,
-            titleError,imageUrlError , descriptionError,authorNameError } = this.state;
-        if (titleError || imageUrlError || descriptionError||authorNameError) {
-            this.setState({ btnDisabled: true });
-            return;
-        } else if (this.state.btnDisabled) {
-            this.setState({ btnDisabled: false })
-        }
-        //fetch data
+
+        const { title, imageUrl, description, authorName } = this.state;
+
+        //fetch data //todo
         console.log(this.state);
         console.log('Everything is correct');
-        this.props.history.push('/home');
+        this.props.history.push('/');
     }
     render() {
         const { title, titleError, titleErrorMessage,
@@ -101,7 +99,7 @@ class Create extends Component {
                 <MDBRow className="justify-content-center">
                     <MDBCol md="6" className={styles.form}>
                         <form className={styles.form} onSubmit={this.submitHandler}>
-                            <p className="h4 text-center mb-4 black-text color-green">CREATE ARTICLE</p>
+                            <p className="h4 text-center mb-4 black-text color-green">Create Article</p>
                             <label htmlFor="title" className={styles.label}>
                                 Title
                             </label>

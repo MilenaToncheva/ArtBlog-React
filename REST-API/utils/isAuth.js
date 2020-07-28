@@ -1,6 +1,7 @@
 const env = process.env.NODE_ENV;
 const { verifyToken } = require('./jwt');
 const User = require('../models/User');
+const TokenBlacklist=require('../models/TokenBlackList');
 const jwt = require('./jwt');
 const { cookieName } = require('../config/config')[env];
 
@@ -10,6 +11,10 @@ module.exports =  (justContinue = false) => {
        // console.log('token-to-verify',token);       
         try {
             const result =await jwt.verifyToken(token);
+            const blacklistToken =await TokenBlacklist.findOne({ token });
+            if(blacklistToken){
+                return new Error('blacklisted token');
+            }
            // console.log('result-varify-token',result);
             const user = await User.findById(result._id);
             if (user) {
@@ -22,6 +27,11 @@ module.exports =  (justContinue = false) => {
         } catch (err) {
             if (justContinue) {
                 next();
+                return;
+            }
+            if (!redirectAuthenticated) { next(); return; }
+            if (['token expired', 'blacklisted token', 'jwt must be provided'].includes(err.message)) {
+                res.status(401).send('UNAUTHORIZED!');
                 return;
             }
             res.redirect('/user/login');

@@ -30,8 +30,8 @@ module.exports = {
         verifyLogin: (req, res, next) => {
             const token = req.body.token || '';
             Promise.all([
-                utils.jwt.verifyToken(token),
-                models.TokenBlacklist.findOne({ token })
+                jwt.verifyToken(token),
+                TokenBlacklist.findOne({ token })
             ])
                 .then(([data, blacklistToken]) => {
                     if (blacklistToken) { return Promise.reject(new Error('blacklisted token')) }
@@ -62,7 +62,7 @@ module.exports = {
             const { email, password } = req.body
 
             User.findOne({ email })
-                .then((user) => Promise.all([user, user.passwordsMatch(user.password)]))
+                .then((user) => Promise.all([user, user.passwordsMatch(password)]))
                 .then(([user, match]) => {
                     if (!match) {
                         res.status(401).send('Invalid password!');

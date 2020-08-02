@@ -2,18 +2,17 @@ import React from 'react';
 import Navbar from '../navbar/navbar.js';
 import Footer from '../footer/footer.js';
 import styles from './page-layout.module.css';
-const PageLayout = (props) => {
+import Title from '../title/title.js';
+const PageLayout = ({ children,title }) => {
 
     return (
-       
-             <div className={styles.backgroundImg}  >
+        <div className={styles.backgroundImg}  >
             <Navbar />
-           
-                {props.children}
-          
+            <Title title={title}/>
+            {children}
             <Footer />
-            </div>
-        );
+        </div>
+    );
 }
 
 export default PageLayout;

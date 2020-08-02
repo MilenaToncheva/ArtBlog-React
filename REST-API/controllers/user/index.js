@@ -3,7 +3,7 @@ const { validationResult, body } = require('express-validator');
 const jwt = require('../../utils/jwt.js');
 const env = process.env.NODE_ENV;
 const { cookieName } = require('../../config/config.js')[env];
-const TokenBlackList = require('../../models/TokenBlackList.js');
+const TokenBlackList = require('../../models/TokenBlackList');
 
 
 module.exports = {
@@ -27,40 +27,39 @@ module.exports = {
 
         },
         //POST VERIFY LOGIN
-        verifyLogin: (req, res, next) => {
+        verifyLogin:async (req, res, next) => {
             const token = req.body.token || '';
-            Promise.all([
-                jwt.verifyToken(token),
-                TokenBlacklist.findOne({ token })
-            ])
-                .then(([data, blacklistToken]) => {
-                    if (blacklistToken) { return Promise.reject(new Error('blacklisted token')) }
+          Promise.all([
+              jwt.verifyToken(token),
+              TokenBlackList.findOne({ token })
+          ])
+              .then(([data, blacklistToken]) => {
+                  if (blacklistToken) { return Promise.reject(new Error('blacklisted token')) }
   
-                    User.findById(data.id)
-                        .then((user) => {
-                            return res.send({
-                              status: true,
-                              user
-                            })
-                        });
-                })
-                .catch(err => {
-                    if (!redirectAuthenticated) { next(); return; }
+                  User.findById(data.id)
+                      .then((user) => {
+                          return res.send({
+                            status: true,
+                            user
+                          })
+                      });
+              })
+              .catch(err => {
+                  if (!redirectAuthenticated) { next(); return; }
   
-                    if (['token expired', 'blacklisted token', 'jwt must be provided'].includes(err.message)) {
-                        res.status(401).send('UNAUTHORIZED!');
-                        return;
-                    }
+                  if (['token expired', 'blacklisted token', 'jwt must be provided'].includes(err.message)) {
+                      res.status(401).send('UNAUTHORIZED!');
+                      return;
+                  }
   
-                    res.send({
-                      status: false
-                    })
-                })
+                  res.send({
+                    status: false
+                  })
+              })
         },
         //POST LOGIN
         login: (req, res, next) => {
             const { email, password } = req.body
-
             User.findOne({ email })
                 .then((user) => Promise.all([user, user.passwordsMatch(password)]))
                 .then(([user, match]) => {
@@ -68,6 +67,7 @@ module.exports = {
                         res.status(401).send('Invalid password!');
                     }
                     const token = jwt.generateToken({ id: user._id });
+                    
                     res.header("Authorization", token).send(user);
                 })
                 .catch(next);

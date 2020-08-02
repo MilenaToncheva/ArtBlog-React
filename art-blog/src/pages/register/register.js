@@ -82,17 +82,17 @@ class RegisterPage extends Component {
         } else if (this.state.confirmPasswordError) {
             this.setState({ confirmPasswordError: false });
         }
-        console.log(this.state.password, ' ', this.state.confirmPassword);
-        console.log(this.state.confirmPasswordError);
+        //console.log(this.state.password, ' ', this.state.confirmPassword);
+        //console.log(this.state.confirmPasswordError);
     }
 
     submitHandler = async (event) => {
 
         event.preventDefault();
         const { email, password, authorName } = this.state;
-        console.log('Email', email);
-        console.log('authorName', authorName);
-        console.log('Pasword', password);
+        //console.log('Email', email);
+        //console.log('authorName', authorName);
+        //console.log('Pasword', password);
         await authenticate(
             'http://localhost:9999/user/register',
             {

@@ -23,6 +23,7 @@ class Navigation extends Component{
                     <Route path="/user/register"component={React.lazy(()=>import('./pages/register/register.js'))}/>
                     <Route path="/user/login"component={React.lazy(()=>import('./pages/login/login.js'))}/>
                     <Route path="/article/create" component={React.lazy(()=>import('./pages/article/create/create-article.js'))}/>
+                    
                    
                     </Suspense>
                   

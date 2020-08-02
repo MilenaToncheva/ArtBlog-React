@@ -21,19 +21,43 @@ class App extends Component {
         })
     }
 
-    logOut = () => {
-        document.cookie = "auth= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
-        this.setState({
-            isLoggedIn: false,
-            user: null
-        });
+    logOut = async (token) => {
+        try {
+            if (token) {
+                //console.log('Token: ',token);
+                const promise = await fetch('http:/localhost:9999/user/logout', {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ token })
+                });
+                if (promise.status !== 200) {
+                    throw promise;
+                }
+                const result = await promise.json();
+                return result;
+            }
+
+            document.cookie = "auth= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+            this.setState({
+                isLoggedIn: false,
+                user: null
+            });
+        } catch (err) {
+            console.log(err);
+        }
     }
+
+
+
 
     componentDidMount() {
         const token = getCookie('auth');
-        //console.log('Cookie-Auth:',token);
-        if (!token) {
-            this.logOut();
+
+        console.log('Cookie-Auth:', token);
+        if (!token || token === '') {
+            this.logOut(token);
             return;
         }
 
@@ -46,26 +70,27 @@ class App extends Component {
                 'Content-Type': 'application/json'
             }
         }).then(promise => {
-            console.log(promise);
+            console.log('Promise: ', promise);
             return promise.json();
         }).then(response => {
+            console.log('Response: ',response);
             if (response.status) {
                 this.logIn({
                     email: response.user.email,
                     id: response.user._id
                 })
             } else {
-                this.logOut();
+                this.logOut(token);
             }
         })
-    }  
+    }
 
     render() {
         const { isLoggedIn, user } = this.state;
 
-        // if (isLoggedIn === null) {
-        //   return (<div>Loading...</div>)
-        // }
+       // if (isLoggedIn === null) {
+       //     return (<div>Loading...</div>)
+       // }
 
         return (
             <AuthContext.Provider value={{

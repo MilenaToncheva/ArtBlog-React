@@ -1,0 +1,22 @@
+.form{
+margin-top: 50px;
+background-color: white;
+border-radius: 5px;
+}
+
+.label{
+    color:black;
+    margin-left:10px
+}
+.input{
+   margin-left: 10px;
+   margin-right: 10px;
+    
+}
+.btn{
+    background-color: #4285F4;
+    margin-bottom: 30px;
+}
+.error{
+    color:red
+}

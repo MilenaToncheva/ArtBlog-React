@@ -11,7 +11,7 @@ const ArticleSchema=new Schema({
     description:{
         type:String,
         required:[true,'Please enter description!'],
-        maxLength:[100,'Description should be 100 symbols max!'],
+        maxlength :[100,'Description should be 100 symbols max!'],
         minlength:[20,'Description should be at least 20 symbols!']
     },
     imageUrl:{
@@ -22,6 +22,10 @@ const ArticleSchema=new Schema({
     author:{
         type:ObjectId,
         ref:'User'
+    },
+    authorName:{
+        type:String,
+        minlength:[3,"Author's name should be at least 3 symbols!"]
     }
 
 })

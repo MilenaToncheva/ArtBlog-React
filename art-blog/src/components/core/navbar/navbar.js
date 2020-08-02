@@ -1,18 +1,14 @@
 import React, { Component, Fragment } from 'react';
-import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBLink, MDBNavbarToggler } from "mdbreact";
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem,  MDBNavbarToggler } from "mdbreact";
+import { Link }from 'react-router-dom';
 import styles from './navbar.module.css';
 import AuthContext from '../../../Context.js';
 
-class Navbar extends Component {
-  constructor(props) {
-    super(props);
-
-  }
+class Navbar extends Component{
   static contextType = AuthContext;
 logout=()=>{
   this.context.logOut();
- // this.props.history.push('/'); //todo ???????????????????
+ 
 }
   render() {
     const { isLoggedIn, user } = this.context;

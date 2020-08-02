@@ -7,7 +7,9 @@ const {path}=require('path');
 
 module.exports=(app)=>{
     app.use(cors({
-        exposedHeaders: 'Authorization'
+        exposedHeaders: 'Authorization',
+        origin: 'http://localhost:3000',
+        credentials: true
       }));
     app.use(express.json());
     

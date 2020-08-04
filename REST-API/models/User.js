@@ -24,7 +24,7 @@ const UserSchema = new Schema({
         minlength:[3,'Password should be at least 3 symbols!'],
         match:[/^[a-zA-Z0-9]+$/,'Password should contain only english letters and digits!']
     },
-    Articles: [{
+    articles: [{
         type: ObjectId,
         ref: 'Article'
     }]

@@ -1,65 +1,34 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import AuthContext from './Context.js';
-function getCookie(name) {
-    const cookieValue = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-    return cookieValue ? cookieValue[2] : null;
-}
-class App extends Component {
-    constructor(props) {
-        super(props);
 
-        this.state = {
-            isLoggedIn: null,
-            user: null
-        }
-    }
+import getCookie from './utils/getCookie.js';
 
-    logIn = (user) => {
-        this.setState({
-            isLoggedIn: true,
-            user
-        })
-    }
+const App = (props) => {
 
-    logOut = async (token) => {
-        try {
-            if (token) {
-                //console.log('Token: ',token);
-                const promise = await fetch('http:/localhost:9999/user/logout', {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ token })
-                });
-                if (promise.status !== 200) {
-                    throw promise;
-                }
-                const result = await promise.json();
-                return result;
-            }
+    const [user, setUser] = useState({email:'',id:''});
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [isLoading, setIsLoading] = useState(true);
+    const logIn = (user) => {
+        console.log('User in App Login: ',user)
+        setIsLoggedIn(true);
+        setUser({...user,email:user.email,id:user.id});
+        
+    }   
 
-            document.cookie = "auth= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
-            this.setState({
-                isLoggedIn: false,
-                user: null
-            });
-        } catch (err) {
-            console.log(err);
-        }
+    const logOut = () => {
+        document.cookie = "auth= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+        setIsLoggedIn(false);
     }
 
 
-
-
-    componentDidMount() {
+    useEffect(() => {
         const token = getCookie('auth');
-
-        console.log('Cookie-Auth:', token);
         if (!token || token === '') {
-            this.logOut(token);
+            logOut();
+            setIsLoading(false);
             return;
         }
+
 
         fetch('http://localhost:9999/user/verify', {
             method: 'POST',
@@ -67,41 +36,38 @@ class App extends Component {
                 token
             }),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': token
             }
         }).then(promise => {
             console.log('Promise: ', promise);
             return promise.json();
         }).then(response => {
-            console.log('Response: ',response);
+            console.log('Response: ', response);
             if (response.status) {
-                this.logIn({
+                logIn({
                     email: response.user.email,
                     id: response.user._id
                 })
             } else {
-                this.logOut(token);
+                logOut();
             }
-        })
-    }
+            setIsLoading(false);
+        });
 
-    render() {
-        const { isLoggedIn, user } = this.state;
+       
 
-       // if (isLoggedIn === null) {
-       //     return (<div>Loading...</div>)
-       // }
-
-        return (
-            <AuthContext.Provider value={{
-                isLoggedIn,
-                user,
-                logIn: this.logIn,
-                logOut: this.logOut
-            }}>
-                {this.props.children}
-            </AuthContext.Provider>
-        );
-    }
+    }, []);
+    return (
+        <AuthContext.Provider value={{
+            user,
+            isLoggedIn,
+            logIn,
+            logOut
+        }}>
+            {props.children}
+        </AuthContext.Provider>
+    );
 }
+
 export default App;

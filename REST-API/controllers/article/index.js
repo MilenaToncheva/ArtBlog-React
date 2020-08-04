@@ -5,10 +5,14 @@ const Article = require("../../models/Article");
 module.exports = {
 
     getAllArticles: (req, res, next) => {
+        console.log('I am in getAllArticles function')
         Article.find()
-            .populate('author')
             .sort({ _id: -1 })
-            .then(articles => res.send(articles))
+            .populate('author')
+            .then((articles) => {
+                console.log('Articles: ', articles);
+                res.send(articles);
+            })
             .catch(next);
 
     },
@@ -24,14 +28,15 @@ module.exports = {
 
 
     createArticle: (req, res, next) => {
-        const { title, description, imageUrl, authorName, author } = req.body;
-        console.log("REST BODY:", req.body);
-        console.log(author);
-
-        Article.create({ title, description, imageUrl, authorName, author }).
+        
+        const { title, description, imageUrl, authorName } = req.body;
+        //console.log('Body-create-article: ',req.body);
+        //console.log('user-from-requerst: ',req.user)
+        const { _id } = req.user._id;
+        Article.create({ title, description, imageUrl, authorName, author: _id }).
             then((createdArticle) => {
-                PromiseAll([
-                    User.updateOne({ _id: author }, { $push: { articles: createdArticle } }),
+                Promise.all([
+                    User.updateOne({ _id }, { $push: { articles: createdArticle._id } }),
                     Aricle.findOne({ _id: createdArticle._id })
                 ]);
             })

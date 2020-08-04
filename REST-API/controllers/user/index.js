@@ -45,7 +45,7 @@ module.exports = {
                       });
               })
               .catch(err => {
-                  if (!redirectAuthenticated) { next(); return; }
+             
   
                   if (['token expired', 'blacklisted token', 'jwt must be provided'].includes(err.message)) {
                       res.status(401).send('UNAUTHORIZED!');
@@ -60,14 +60,16 @@ module.exports = {
         //POST LOGIN
         login: (req, res, next) => {
             const { email, password } = req.body
+        
             User.findOne({ email })
                 .then((user) => Promise.all([user, user.passwordsMatch(password)]))
                 .then(([user, match]) => {
                     if (!match) {
                         res.status(401).send('Invalid password!');
+                        return;
                     }
                     const token = jwt.generateToken({ id: user._id });
-                    
+                    console.log('User: ',user);
                     res.header("Authorization", token).send(user);
                 })
                 .catch(next);

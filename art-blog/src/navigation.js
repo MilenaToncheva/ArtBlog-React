@@ -7,6 +7,8 @@ import LoginPage from './pages/login/login';
 import RegisterPage from './pages/register/register.js';
 import CreateArticlePage from './pages/article/create/create-article.js'
 import ErrorPage from './pages/error/error-page.js'
+import HomePage from './pages/home/home';
+import PublicHomePage from './pages/public-home/public-home';
 
 class Navigation extends Component {
 
@@ -17,32 +19,19 @@ class Navigation extends Component {
         return (
             <Router>
                 <Switch>
-                    <Suspense fallback={
-                        <PageLayout><p className={styles.loading}>Loading...</p></PageLayout>}>
-
-                        < Route exact path="/home/" 
-                             component={React.lazy(() => (
-                            isLoggedIn ?
-                                import('./pages/home/home.js') :
-                                import('./pages/public-home/public-home.js')))}
-                        />
-
+                        < Route exact path="/home/" >
+                            {  isLoggedIn ? <HomePage/>:<PublicHomePage/>}
+                        </Route>
                         <Route exact path="/user/register">
                             {   !isLoggedIn ? <RegisterPage />:<Redirect to='/home/'/>}
                            </Route>
                         <Route exact path="/user/login" >
                             { !isLoggedIn ? <LoginPage/>:<Redirect to="/home/"/>}
                         </Route>
-                          
-                            
                         <Route exact path="/article/create-article">
                             {  isLoggedIn? <CreateArticlePage/>:<Redirect to="/user/login"/>}
-                            </Route> 
-
+                            </Route>
                         <Route component={ErrorPage} />
-
-                    </Suspense>
-
                 </Switch>
             </Router>
         )

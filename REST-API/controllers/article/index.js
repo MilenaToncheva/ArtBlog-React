@@ -1,11 +1,12 @@
-const Aricle = require("../../models/Article");
+const Article = require("../../models/Article");
 const { validationResult } = require('express-validator');
 const User = require("../../models/User");
-const Article = require("../../models/Article");
+
 module.exports = {
 
     getAllArticles: (req, res, next) => {
-        console.log('I am in getAllArticles function')
+        
+        console.log('I am in getAllArticles')
         Article.find()
             .sort({ _id: -1 })
             .populate('author')
@@ -37,7 +38,7 @@ module.exports = {
             then((createdArticle) => {
                 Promise.all([
                     User.updateOne({ _id }, { $push: { articles: createdArticle._id } }),
-                    Aricle.findOne({ _id: createdArticle._id })
+                    Article.findOne({ _id: createdArticle._id })
                 ]);
             })
             .then(([updatedUser, createdArticle]) => {

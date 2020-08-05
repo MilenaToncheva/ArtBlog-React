@@ -8,6 +8,7 @@ const generateToken = (data) => {
     
 }
 const verifyToken = (token) => {
+    console.log('token-in-jwt:',token);
     return new Promise((resolve, reject) => {
         jwt.verify(token, secretKey, (err, data) => {
             if (err) {

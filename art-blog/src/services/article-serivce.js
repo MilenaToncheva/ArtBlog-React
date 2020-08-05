@@ -3,12 +3,11 @@ import getCookie from '../utils/getCookie.js';
 const articleService = {
     loadAll: async function () {
         const promise=await fetch('http://localhost:9999/article/all', {
-            method: "GET",
-            headers: {
-                'Content-type': 'application/json',
-                'Authorization': getCookie('auth')
-            }
-        });
+         method: "GET",
+        headers: {
+           
+            'Authorization': getCookie('auth')
+        }});
         const articles = await promise.json();
        
         return articles;

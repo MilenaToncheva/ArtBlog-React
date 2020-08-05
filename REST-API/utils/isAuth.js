@@ -9,7 +9,8 @@ module.exports =  (redirectAuthenticated = true) => {
     return async function (req, res, next) {
         
         const token = req.headers.authorization || '';
-     //   console.log('token-to-verify',token);       
+     
+        console.log('token-to-verify',token);       
         try {
             const result =await jwt.verifyToken(token);
 
@@ -23,11 +24,9 @@ module.exports =  (redirectAuthenticated = true) => {
            console.log('User-in-isAuth: ',user);
             if (user) {
                 req.user = user;
-              //  console.log('User -in-req:',req.user)
+                console.log('User -in-req--:',req.user);
                 next();
-            } else {
-                res.redirect('/user/login');
-            }
+            } 
 
         }  catch(err) {
             if (!redirectAuthenticated) { next(); return; }

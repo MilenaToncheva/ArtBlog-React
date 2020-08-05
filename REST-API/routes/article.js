@@ -3,9 +3,8 @@ const controller=require('../controllers/article');
 const isAuth=require('../utils/isAuth');
 const validations=require('../utils/validator');
 
-router.get('/:_id',isAuth(),controller.getArticleById);
 router.get('/all',isAuth(),controller.getAllArticles);
-
+router.get('/:_id',isAuth(),controller.getArticleById);
 
 
 router.post('/create-article',isAuth(),validations['article'],controller.createArticle);

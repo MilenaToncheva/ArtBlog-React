@@ -6,12 +6,13 @@ const { cookieName } = require('../config/config')[env];
 
 module.exports = () => {
     return async function (req, res, next) {
-        const token = req.cookies[cookieName] || '';
+        const token =  req.headers.authorization || '';
         if (token === '') {
             next();
             return;
 
         }
-       res.redirect('/home/');
+        res.status(401).send('UNAUTHORIZED!');
+        return;
     }
 }

@@ -2,20 +2,24 @@ import getCookie from '../utils/getCookie.js';
 
 const articleService = {
     loadAll: async function () {
-        const promise=await fetch('http://localhost:9999/article/all', {
-         method: "GET",
-        headers: {
-           
-            'Authorization': getCookie('auth')
-        }});
+        const promise=await fetch('http://localhost:9999/article/all',{
+            method: "GET",
+            headers: {
+                'Authorization': getCookie('auth')
+            }
+        });
         const articles = await promise.json();
-       
         return articles;
     },
 
     load: async function (id) {
 
-        const promise = await fetch(`http://localhost:9999/article/${id}`);
+        const promise = await fetch(`http://localhost:9999/article/${id}`,{
+            method: "GET",
+            headers: {
+                'Authorization': getCookie('auth')
+            }
+        });
 
         const article = promise.json();
         return article;

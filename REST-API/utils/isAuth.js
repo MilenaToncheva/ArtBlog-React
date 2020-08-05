@@ -1,9 +1,7 @@
-const env = process.env.NODE_ENV;
 const { verifyToken } = require('./jwt');
 const User = require('../models/User');
 const TokenBlacklist=require('../models/TokenBlackList');
-const jwt = require('./jwt');
-const { cookieName } = require('../config/config')[env];
+
 
 module.exports =  (redirectAuthenticated = true) => {
     return async function (req, res, next) {
@@ -12,7 +10,7 @@ module.exports =  (redirectAuthenticated = true) => {
      
         console.log('token-to-verify',token);       
         try {
-            const result =await jwt.verifyToken(token);
+            const result =await verifyToken(token);
 
            // console.log('Result: ',result);
             const blacklistToken =await TokenBlacklist.findOne({ token });
@@ -40,4 +38,4 @@ module.exports =  (redirectAuthenticated = true) => {
         }
 
     }
-}
+};

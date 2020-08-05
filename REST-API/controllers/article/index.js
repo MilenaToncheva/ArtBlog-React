@@ -10,6 +10,7 @@ module.exports = {
         Article.find()
             .sort({ _id: -1 })
             .populate('author')
+            .lean()
             .then((articles) => {
                 console.log('Articles: ', articles);
                 res.send(articles);
@@ -42,7 +43,7 @@ module.exports = {
                 ]);
             })
             .then(([updatedUser, createdArticle]) => {
-                console.log(createdArticle);
+                console.log(updatedUser);
                 res.send(createdArticle)
 
             }).catch(next);

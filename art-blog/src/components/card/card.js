@@ -1,42 +1,37 @@
 
 import React from 'react';
+import {useHistory} from 'react-router-dom';
 import { MDBRow,MDBBtn,MDBCol,MDBCard,MDBView,MDBCardImage,MDBCardBody,MDBIcon,MDBCardText,MDBCardTitle } from 'mdbreact';
-const ArticleCard = ({ _id, imageUrl, title,children }) => {
+import styles from './card.module.css';
+const ArticleCard = ({ id, imageUrl, title,children }) => {
+  const history=useHistory();
+  console.log('id',id);
   return (
-    <MDBRow>
-
-      <MDBCol md='4'>
+          <MDBCol md='12' className={styles.card} >
         <MDBCard narrow>
           <MDBView cascade>
-            <MDBCardImage
+            <MDBCardImage 
               hover
               overlay='white-slight'
-              className='card-img-top'
+              className={styles.cardImage}
               src={imageUrl}
               alt='article'
             />
           </MDBView>
-
-          <MDBCardBody>
+          <MDBCardBody className={styles.body}>
             <h5 className='pink-text'>
               <MDBIcon icon='paint-brush' /> Art
             </h5>
-
             <MDBCardTitle className='font-weight-bold'>
               {title}
             </MDBCardTitle>
-
-            <MDBCardText>
-             {children}...
+            <MDBCardText className={styles.description}>
+             {children.substring(0,10)}...
             </MDBCardText>
-
-            <MDBBtn color='unique' >Details</MDBBtn>
+            <MDBBtn className={styles.brn} color='unique' onClick={()=>{history.push(`/article/details-article/${id}`)}}>Details</MDBBtn>
           </MDBCardBody>
         </MDBCard>
       </MDBCol>
-
-    </MDBRow>
-
   );
 }
 export default ArticleCard;

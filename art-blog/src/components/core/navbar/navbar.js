@@ -1,5 +1,5 @@
 import React, { Fragment, useContext } from 'react';
-import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavbarToggler } from "mdbreact";
+import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem } from "mdbreact";
 import { Link } from 'react-router-dom';
 import styles from './navbar.module.css';
 import AuthContext from '../../../Context.js';

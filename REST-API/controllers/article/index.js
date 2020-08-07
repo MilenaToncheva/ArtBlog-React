@@ -5,21 +5,20 @@ const User = require("../../models/User");
 module.exports = {
 
     getAllArticles: (req, res, next) => {
-        
-        console.log('I am in getAllArticles')
         Article.find()
             .sort({ _id: -1 })
             .populate('author')
             .lean()
             .then((articles) => {
-                console.log('Articles: ', articles);
                 res.send(articles);
             })
             .catch(next);
 
     },
     getArticleById: (req, res, next) => {
-        const id = req.params.id;
+        const id = req.params._id;
+        console.log(req.params);
+       console.log('I Am in getArticle id:',id);
         Article.findOne({ _id: id })
             .populate('author')
             .then((article) => res.send(article))

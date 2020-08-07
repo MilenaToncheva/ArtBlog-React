@@ -8,7 +8,7 @@ module.exports =  (redirectAuthenticated = true) => {
         
         const token = req.headers.authorization || '';
      
-        console.log('token-to-verify',token);       
+      //  console.log('token-to-verify',token);       
         try {
             const result =await verifyToken(token);
 
@@ -19,7 +19,7 @@ module.exports =  (redirectAuthenticated = true) => {
             }
            // console.log('result-varify-token',result);
             const user = await User.findById(result.id);
-           console.log('User-in-isAuth: ',user);
+          
             if (user) {
                 req.user = user;
                 console.log('User -in-req--:',req.user);

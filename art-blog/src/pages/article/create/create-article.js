@@ -108,7 +108,7 @@ const CreateArticlePage = () => {
                             </label>
                             <input type="text" required minLength={3} id="title" value={title}
                                 onChange={titleChangeHandler} className="form-control" onBlur={titleBlurHandler} />
-                            {titleError ? (<div className={styles.error}>{titleErrorMessage}</div>) : null}
+                            {titleError ? (<div className={styles.error} >{titleErrorMessage}</div>) : null}
                             <br />
                             <label htmlFor="imageUrl" className={styles.label}>
                                 Image URL

@@ -82,7 +82,7 @@ const RegisterPage = () => {
             },
             (user) => {
                 context.logIn(user);
-                history.push('/');
+                history.push('/home/');
             }, (err) => {
                 console.log('Error', err)
             });

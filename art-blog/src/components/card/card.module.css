@@ -1,0 +1,21 @@
+.card{
+    align-items: center;
+    width: 250px;
+    height:300px;
+    margin: 5px 5px 5px 5px
+}
+.cardImage{
+width: 150px;
+height: 165px;
+margin: 5px 5px 5px 5px
+}
+.description{
+    text-align: center;
+}
+.btn{
+    text-align: center;
+}
+.body{
+    align-items: center;
+    margin:5px 0px 5px 0px
+}

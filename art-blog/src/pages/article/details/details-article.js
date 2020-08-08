@@ -7,23 +7,27 @@ import articleService from '../../../services/article-serivce.js';
 const DetailsArticlePage = () => {
     const params = useParams();
     const [article, setArticle] = useState({});
+    const[authorId,setAuthorId]=useState({});
     const id = params.id;
     console.log(id);
 
     const getArticleById = async (id) => {
         const article = await articleService.load(id);
         setArticle(article);
-       
+        setAuthorId(article.author._id);
     }
 
     useEffect(() => {
         getArticleById(id);
-    }, [id])
 
+    }, [id])
+    
+    
+    
     return (
         <PageLayout title="Article Details">
             <Article className={styles.article}title={article.title} description={article.description} imageUrl={article.imageUrl}
-                articleId={id} authorName={article.authorName} authorId={article.author} disabled={true} pageTitle={'Article Details'} />
+                articleId={article._id} authorName={article.authorName} authorId={authorId} disabled={true} pageTitle={'Article Details'} />
         </PageLayout>
     );
 }

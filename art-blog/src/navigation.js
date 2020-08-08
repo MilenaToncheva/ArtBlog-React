@@ -8,6 +8,7 @@ import ErrorPage from './pages/error/error-page.js'
 import HomePage from './pages/home/home';
 import PublicHomePage from './pages/public-home/public-home';
 import DetailsArticlePage from './pages/article/details/details-article.js'
+import MyArticlesPage from './pages/article/my-articles/my-articles.js';
 
 class Navigation extends Component {
 
@@ -32,6 +33,9 @@ class Navigation extends Component {
                             </Route>
                             <Route exact path="/article/details-article/:id">
                                 {isLoggedIn? <DetailsArticlePage />:<Redirect to="/user/login"/>}
+                            </Route>
+                            <Route exact path="/article/my-articles">
+                                {isLoggedIn? <MyArticlesPage/>:<Redirect to="/user/login"/>}
                             </Route>
                         <Route component={ErrorPage} />
                 </Switch>

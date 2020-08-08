@@ -4,10 +4,10 @@
 
 }
 .divImg{
-max-width: 300px;
+max-height: 300px;
 }
-.img{
-     max-width: 280px;
+.imgageArticle{
+     height: 50vh;
 margin:30px 30px 30px 30px
 
 }

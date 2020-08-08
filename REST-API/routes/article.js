@@ -4,6 +4,7 @@ const isAuth=require('../utils/isAuth');
 const validations=require('../utils/validator');
 
 router.get('/all',isAuth(),controller.getAllArticles);
+router.get('/my-articles',isAuth(),controller.getMyArticles);
 router.get('/details-article/:_id',isAuth(),controller.getArticleById);
 
 

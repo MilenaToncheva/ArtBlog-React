@@ -1,12 +1,9 @@
 import React from 'react';
 import styles from './public-home.module.css'
 import { Link } from 'react-router-dom';
-
 import PageLayout from '../../components/core/page-layout/page-layout.js';
-import AuthContext from '../../Context';
 
 const PublicHomePage = () => {
-  
 
   return (
     <PageLayout title="Welcome to MT ArtBlog">

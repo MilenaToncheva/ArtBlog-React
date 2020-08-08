@@ -2,6 +2,7 @@ const Article = require("../../models/Article");
 const { validationResult } = require('express-validator');
 const User = require("../../models/User");
 
+
 module.exports = {
 
     getAllArticles: (req, res, next) => {
@@ -17,19 +18,23 @@ module.exports = {
     },
     getArticleById: (req, res, next) => {
         const id = req.params._id;
-        console.log(req.params);
-       console.log('I Am in getArticle id:',id);
         Article.findOne({ _id: id })
             .populate('author')
             .then((article) => res.send(article))
             .catch(next);
 
     },
-
-
+    getMyArticles: (req, res, next) => {
+        const userId = req.user._id;
+        console.log('UserId-in controller',userId);
+        Article.find({ author: userId })
+            .lean()
+            .then((articles) => res.send(articles))
+            .catch(next);
+    },
 
     createArticle: (req, res, next) => {
-        
+
         const { title, description, imageUrl, authorName } = req.body;
         //console.log('Body-create-article: ',req.body);
         //console.log('user-from-requerst: ',req.user)

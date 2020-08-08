@@ -1,7 +1,7 @@
 
 import React from 'react';
 import {useHistory} from 'react-router-dom';
-import { MDBRow,MDBBtn,MDBCol,MDBCard,MDBView,MDBCardImage,MDBCardBody,MDBIcon,MDBCardText,MDBCardTitle } from 'mdbreact';
+import { MDBBtn,MDBCol,MDBCard,MDBView,MDBCardImage,MDBCardBody,MDBIcon,MDBCardText,MDBCardTitle } from 'mdbreact';
 import styles from './card.module.css';
 const ArticleCard = ({ id, imageUrl, title,children }) => {
   const history=useHistory();

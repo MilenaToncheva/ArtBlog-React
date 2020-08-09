@@ -3,11 +3,35 @@
     font-weight: bold;
 
 }
-.divImg{
-max-height: 300px;
-}
-.imgageArticle{
-     height: 50vh;
+* {
+    box-sizing: border-box
+  }
+  
+.column {
+   flex:50%;
+   padding:25px;
+   height:600px
+   
+  }
+  
+  /* Clear floats after the columns */
+  .row {
+    display:flex;
+  }
+.image{
+max-width: 300px;
+padding: 30px;
 margin:30px 30px 30px 30px
 
+}
+.btn{
+    margin:50px;
+  
+  
+    border-radius: 3px;
+color:#880E4F;
+    border: solid;
+}
+#btnDiv{
+    margin:50px;
 }

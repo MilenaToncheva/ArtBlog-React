@@ -6,8 +6,8 @@ import getCookie from './utils/getCookie.js';
 const App = (props) => {
 
     const [user, setUser] = useState({email:'',id:''});
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+   const[isLoading,setIsLoading]=useState(true);
     const logIn = (user) => {
         console.log('User in App Login: ',user)
         setIsLoggedIn(true);

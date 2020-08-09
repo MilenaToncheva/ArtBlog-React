@@ -10,7 +10,7 @@ router.get('/details-article/:_id',isAuth(),controller.getArticleById);
 
 router.post('/create-article',isAuth(),validations['article'],controller.createArticle);
 router.put('/edit-article/:_id',isAuth(),validations['article'],controller.editArticle);
-router.delete('/delete-article/:_id',isAuth(),validations['article'],controller.deleteArticle);
+router.delete('/delete-article/:_id',isAuth(),controller.deleteArticle);
 
 
 module.exports=router;

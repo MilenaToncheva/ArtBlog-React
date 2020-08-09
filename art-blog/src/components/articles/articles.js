@@ -31,7 +31,7 @@ const Articles = ({ myArticles }) => {
                 <Fragment>
                     <MDBRow >
                         {articleCards.map((articleCard) =>
-                            <div className={styles.card}>
+                            <div key={articleCard._id} className={styles.card}>
                                 <ArticleCard className key={articleCard._id} id={articleCard._id}
                                     title={articleCard.title} imageUrl={articleCard.imageUrl} >{articleCard.description}</ArticleCard>
                             </div>

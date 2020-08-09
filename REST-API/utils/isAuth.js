@@ -22,7 +22,6 @@ module.exports =  (redirectAuthenticated = true) => {
           
             if (user) {
                 req.user = user;
-                console.log('User -in-req--:',req.user);
                 next();
             } 
 

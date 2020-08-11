@@ -7,16 +7,17 @@ const authenticate = async (url, body, onSuccess, onFailure) => {
                 'Content-Type': 'application/json'
             }
         });
-        console.log(promise);
+       // console.log(promise);
         const authToken = promise.headers.get('Authorization');
-        console.log('authToken',authToken);
+        //console.log('authToken',authToken);
         document.cookie = `auth=${authToken}`;
         const response = await promise.json();
-        console.log('response',response);
+       console.log('response',response);
         if (response.email && authToken) {
             onSuccess({
                 email: response.email,
-                id: response._id
+                id: response._id,
+                authorName:response.authorName
             })
         } else {
 

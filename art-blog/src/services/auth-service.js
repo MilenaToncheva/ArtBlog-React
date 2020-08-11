@@ -28,6 +28,4 @@ const authService = async (url, body, onSuccess, onFailure) => {
     }
 }
 
-
-
 export default authenticate;

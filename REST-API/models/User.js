@@ -18,6 +18,15 @@ const UserSchema = new Schema({
         required:[true,'Author name is required!'],
         minlength:[3,'Author name should be at least 3 symbols!']
     },
+    cv:{
+        type:String,
+        required:[true,'CV is required!'],
+        minlength:[10,'CV should be at least 10 symbols!']
+    },
+    avatar:{
+        type:String,
+        required:[true,'Avatar is required!']
+    },
     password: {
         type: String,
         required:[ true,'Password is required'],

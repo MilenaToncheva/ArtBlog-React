@@ -19,7 +19,7 @@ useEffect(()=>{
 },[id]);
 
        return (
-        <PageLayout title="Article Delete">
+        <PageLayout title="Delete Article">
            <ArticleForm btnTitle="Delete" disabled={true} articleId={id} 
           titleDb={article.title} descriptionDb={article.description} imageUrlDb={article.imageUrl} authorNameDb={article.authorName}/>
         </PageLayout>

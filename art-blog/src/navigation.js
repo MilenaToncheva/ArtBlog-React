@@ -11,6 +11,8 @@ import DetailsArticlePage from './pages/article/details/details-article.js'
 import MyArticlesPage from './pages/article/my-articles/my-articles.js';
 import EditArticlePage from './pages/article/edit/edit-article.js';
 import DeleteArticlePage from './pages/article/delete/delete-article.js';
+import ProfilePage from './pages/profile/profile-page.js';
+
 class Navigation extends Component {
 
     static contextType = AuthContext;
@@ -20,14 +22,19 @@ class Navigation extends Component {
         return (
             <Router>
                 <Switch>
+
                     < Route exact path="/home/" >
                         {isLoggedIn ? <HomePage /> : <PublicHomePage />}
                     </Route>
+                    
                     <Route exact path="/user/register">
                         {!isLoggedIn ? <RegisterPage /> : <Redirect to='/home/' />}
                     </Route>
                     <Route Route exact path="/user/login" >
                         {!isLoggedIn ? <LoginPage /> : <Redirect to="/home/" />}
+                    </Route>
+                    <Route exact path="/user/profile/:id">
+                    {isLoggedIn ? <ProfilePage /> : <Redirect to="/user/login" />}
                     </Route>
                     <Route exact path="/article/create-article">
                         {isLoggedIn ? <CreateArticlePage /> : <Redirect to="/user/login" />}
@@ -45,6 +52,7 @@ class Navigation extends Component {
                     <Route exact path="/article/my-articles">
                         {isLoggedIn ? <MyArticlesPage /> : <Redirect to="/user/login" />}
                     </Route>
+                  
                     <Route component={ErrorPage} />
                 </Switch>
             </Router>

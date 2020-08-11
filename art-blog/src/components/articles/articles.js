@@ -29,7 +29,7 @@ const Articles = ({ myArticles }) => {
         <Fragment>
             {articleCards.length > 0 ?
                 <Fragment>
-                    <MDBRow >
+                    <MDBRow className={styles.parent}>
                         {articleCards.map((articleCard) =>
                             <div key={articleCard._id} className={styles.card}>
                                 <ArticleCard className key={articleCard._id} id={articleCard._id}

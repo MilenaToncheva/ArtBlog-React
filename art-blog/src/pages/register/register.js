@@ -9,7 +9,7 @@ import AuthContext from '../../Context.js';
 
 const RegisterPage = () => {
     const context = useContext(AuthContext);
-    const history=useHistory();
+    const history = useHistory();
     const [email, setEmail] = useState('');
     const [emailError, setEmailError] = useState(false);
     const [emailErrorMessage, setEmailErrorMessage] = useState('Invalid email!');
@@ -17,6 +17,11 @@ const RegisterPage = () => {
     const [passwordError, setPasswordError] = useState(false);
     const [passwordErrorMessage, setPasswordErrorMessage]
         = useState('Password should be at least 3 symbols and should contain only letters and digits!');
+    const [cv, setCv] = useState('');
+    const [cvError, setCvError] = useState(false);
+    const [cvErrorMessage, setCvErrorMessage] = useState('Invalid cv! Should be at least 10 symbols long!')
+    const[avatar,setAvatar]=useState('');
+    
     const [confirmPassword, setConfirmPassword] = useState('');
     const [confirmPasswordError, setConfirmPasswordError] = useState(false);
     const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage]
@@ -46,6 +51,25 @@ const RegisterPage = () => {
             return;
         } else if (authorNameError) {
             setAuthorNameError(false);
+        }
+    }
+    const cvChangeHandler = (event) => {
+        setCv(event.target.value);
+    }
+    const cvBlurHandler = (event) => {
+        if (cv.length < 10) {
+            setCvError(true);
+            return;
+        } else if (cvError) {
+            setCvError(false);
+        }
+    }
+    const avatarChangeHandler=(event)=>{
+        setAvatar(event.target.value);
+    }
+    const avatarBlurHandler=(event)=>{
+        if(!avatar){
+            setAvatar('https://res.cloudinary.com/mt-art-gallery/image/upload/c_scale,h_95/v1597071508/art-blog-react/avatar_j4uwue.jpg');
         }
     }
     const passwordChangeHandler = (event) => {
@@ -78,6 +102,8 @@ const RegisterPage = () => {
             {
                 email,
                 authorName,
+                avatar,
+                cv,
                 password
             },
             (user) => {
@@ -96,14 +122,18 @@ const RegisterPage = () => {
                         <form className={styles.form} onSubmit={submitHandler}>
                             <p className="h5 text-center mb-4">Register</p>
                             <div className="black-text">
-                                <MDBInput label="Email" id="email" value={email} onChange={emailChangeHandler} 
-                                onBlur={emailBlurHandler} group type="email" />
+                                <MDBInput label="Email" id="email" value={email} onChange={emailChangeHandler}
+                                    onBlur={emailBlurHandler} group type="email" />
                                 {emailError ? (<div className={styles.error}>{emailErrorMessage}</div>) : null}
                                 <MDBInput label="Author Name" id="authorName" value={authorName} onChange={authorNameChangeHandler}
                                     onBlur={authorNameBlurHandler} group type="text" />
+
                                 {authorNameError ? (<div className={styles.error}>{authorNameErrorMessage}</div>) : null}
-                                <MDBInput label="Password" id="password" value={password} onChange={passwordChangeHandler} 
-                                onBlur={passwordBlurHandler}  group type="password" />
+                                <MDBInput type="textarea" label="cv" rows="5" value={cv} onChange={cvChangeHandler} onBlur={cvBlurHandler} />
+                                {cvError ? (<div className={styles.error}>{cvErrorMessage}</div>) : null}
+                                <MDBInput label="avatar" value={avatar} onChange={avatarChangeHandler} onBlur={avatarBlurHandler}/>
+                                <MDBInput label="Password" id="password" value={password} onChange={passwordChangeHandler}
+                                    onBlur={passwordBlurHandler} group type="password" />
                                 {passwordError ? (<div className={styles.error}>{passwordErrorMessage}</div>) : null}
                                 <MDBInput label="Confirm password" id="confirmPassword" value={confirmPassword} onChange={confirmPasswordChangeHandler}
                                     onBlur={confirmPasswordBlurHandler} group type="password" />

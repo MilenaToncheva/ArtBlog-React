@@ -1,21 +1,28 @@
-.card{
-    align-items: center;
-    width: 250px;
-    height:300px;
-    margin: 5px 5px 5px 5px
-}
+
 .cardImage{
-width: 150px;
-height: 165px;
-margin: 5px 5px 5px 5px
-}
+    width: 170px;
+    height: 175px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    }
 .description{
-    text-align: center;
+    display:block;
+    justify-content: left;
 }
-.btn{
-    text-align: center;
-}
+
 .body{
-    align-items: center;
-    margin:5px 0px 5px 0px
+    text-align:  center;
+    margin:5px auto 5px auto;
+    height:270px;
+    width:276px
+}
+.icon{
+ align-content: center;
+}
+.title{
+    font-weight: bold;
+    height: 60px;
+    widows: 236px;
 }

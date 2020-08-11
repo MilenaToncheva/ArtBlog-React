@@ -5,14 +5,14 @@ import getCookie from './utils/getCookie.js';
 
 const App = (props) => {
 
-    const [user, setUser] = useState({email:'',id:''});
+    const [user, setUser] = useState({email:'',id:'',authorName:''});
     const [isLoggedIn, setIsLoggedIn] = useState(false);
    const[isLoading,setIsLoading]=useState(true);
     const logIn = (user) => {
         console.log('User in App Login: ',user)
         setIsLoggedIn(true);
-        setUser({...user,email:user.email,id:user.id});
-        
+        setUser({...user,email:user.email,id:user.id, authorName:user.authorName});
+       
     }   
 
     const logOut = () => {
@@ -40,14 +40,16 @@ const App = (props) => {
                 'Authorization': token
             }
         }).then(promise => {
-            console.log('Promise: ', promise);
+            //console.log('Promise: ', promise);
             return promise.json();
         }).then(response => {
-            console.log('Response: ', response);
+           // console.log('Response: ', response);
             if (response.status) {
                 logIn({
                     email: response.user.email,
-                    id: response.user._id
+                    id: response.user._id,
+                    authorName:response.user.authorName,
+                   
                 })
             } else {
                 logOut();

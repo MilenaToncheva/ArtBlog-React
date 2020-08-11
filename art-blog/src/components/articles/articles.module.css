@@ -11,9 +11,13 @@
      font-size: large;
  
  }
- .card{
-     align-items: center;
-     margin:5px;
-     width:250px;
- height: 270px;
- }
+ .parent{
+     display: flex;
+    flex-wrap: wrap;
+
+    }
+    .card{
+        margin-left:10px;
+        display: grid;
+        grid-template-rows: max-content 20px 1fr;
+    }

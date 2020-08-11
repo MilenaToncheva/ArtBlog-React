@@ -19,7 +19,7 @@ useEffect(()=>{
 },[id]);
 
        return (
-        <PageLayout title="Article Edit">
+        <PageLayout title="Edit Article">
            <ArticleForm btnTitle="Edit" disabled={false} articleId={id} 
            titleDb={article.title} descriptionDb={article.description} imageUrlDb={article.imageUrl}
             authorNameDb={article.authorName}/>

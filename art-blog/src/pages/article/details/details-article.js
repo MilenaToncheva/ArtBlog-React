@@ -5,7 +5,7 @@ import PageLayout from '../../../components/core/page-layout/page-layout.js';
 import Article from '../../../components/article/article.js';
 import articleService from '../../../services/article-serivce.js';
 const DetailsArticlePage = () => {
-   
+
     const params = useParams();
     const [article, setArticle] = useState({});
     const [authorId, setAuthorId] = useState({});
@@ -16,13 +16,12 @@ const DetailsArticlePage = () => {
         const article = await articleService.load(id);
         setArticle(article);
         setAuthorId(article.author._id);
-        console.log('Article',article);
+        console.log('Article', article);
     }
 
-    useEffect(() => { 
-
+    useEffect(() => {
         getArticleById(id);
-      return ()=>{}
+        return () => { }
     }, [])
 
 

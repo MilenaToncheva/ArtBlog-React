@@ -8,8 +8,8 @@ const ArticleCard = ({ id, imageUrl, title, children }) => {
   
   return (
     <MDBCol md='12' className={styles.card} >
-      <MDBCard narrow>
-        <MDBView cascade>
+      <MDBCard style={{ width: "22rem" }}>
+        <MDBView   cascade>
           <MDBCardImage
             hover
             overlay='white-slight'
@@ -20,9 +20,9 @@ const ArticleCard = ({ id, imageUrl, title, children }) => {
         </MDBView>
         <MDBCardBody className={styles.body}>
           <h5 className='pink-text'>
-            <MDBIcon icon='paint-brush' /> Art
+            <MDBIcon className={styles.icon} icon='paint-brush' /> Art
             </h5>
-          <MDBCardTitle className='font-weight-bold'>
+          <MDBCardTitle className={styles.title}>
             {title}
           </MDBCardTitle>
           <MDBCardText className={styles.description}>

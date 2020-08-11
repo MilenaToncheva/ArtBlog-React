@@ -9,7 +9,15 @@ module.exports = {
             .isAlphanumeric()
             .withMessage('Password should contain only english letters and digits!')
             .isLength({ min: 3 })
-            .withMessage('Password should be at least 3 symbols!')
+            .withMessage('Password should be at least 3 symbols!'),
+        body('cv')
+            .notEmpty()
+            .withMessage('CV is required!')
+            .isLength({ min: 10 })
+            .withMessage('CV should be at least 10 symbols!'),
+            body('avatar')
+            .notEmpty()
+            .withMessage('Avatar is required')
 
     ],
     article: [

@@ -48,7 +48,7 @@ const  logout = () => {
         </Fragment>) : null}
         {context.isLoggedIn ? (<Fragment>
           <MDBNavItem className={styles.item}>
-            <Link className="waves-effect waves-light black-text" to="/user/profile/:id">
+            <Link className="waves-effect waves-light black-text" to={`/user/profile/${context.user.id}`}>
               <p>Welcome, {context.user.email}</p>
             </Link>
           </MDBNavItem>

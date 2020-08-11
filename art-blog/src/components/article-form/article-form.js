@@ -7,6 +7,9 @@ import articleService from '../../services/article-serivce.js'
 
 const ArticleForm = ({ btnTitle, disabled, titleDb, imageUrlDb, descriptionDb, authorNameDb, articleId }) => {
     const context = useContext(AuthContext);
+    console.log('Context', context);
+    console.log(context.user.authorName);
+
     const history = useHistory();
     const [title, setTitle] = useState('');
     const [titleError, setTitleError] = useState(false);
@@ -17,9 +20,7 @@ const ArticleForm = ({ btnTitle, disabled, titleDb, imageUrlDb, descriptionDb, a
     const [description, setDescription] = useState('');
     const [descriptionError, setDescriptionError] = useState(false);
     const [descriptionErrorMessage] = useState('Description should be between 20 and 100 symbols!');
-    const [authorName, setAuthorName] = useState('');
-    const [authorNameError, setAuthorNameError] = useState(false);
-    const [authorNameErrorMessage] = useState('Invalid name. The name should be at least 3 characters long!');
+    const [authorName, setAuthorName] = useState(context.user.authorName);
 
     const titleBlurHandler = (event) => {
         if (title.length < 3) {
@@ -60,19 +61,6 @@ const ArticleForm = ({ btnTitle, disabled, titleDb, imageUrlDb, descriptionDb, a
         setDescription(event.target.value);
     }
 
-    const authorNameBlurHandler = (event) => {
-        if (authorName.length < 3) {
-            setAuthorNameError(true);
-            return;
-        } else if (authorNameError) {
-            setAuthorNameError(false);
-        }
-    }
-
-    const authorNameChangeHandler = (event) => {
-        setAuthorName(event.target.value);
-    }
-
     const submitHandler = async (event) => {
         event.preventDefault();
         console.log('User id:', context.user.id);
@@ -81,7 +69,7 @@ const ArticleForm = ({ btnTitle, disabled, titleDb, imageUrlDb, descriptionDb, a
             title,
             imageUrl,
             description,
-            authorName,
+            authorName: context.user.authorName,
             author: context.user.id
         }
         console.log('Data: ', data)
@@ -120,7 +108,6 @@ const ArticleForm = ({ btnTitle, disabled, titleDb, imageUrlDb, descriptionDb, a
             <MDBRow className="justify-content-center">
                 <MDBCol md="6" className={styles.form}>
                     <form className={styles.form} onSubmit={submitHandler}>
-                        <p className="h4 text-center mb-4 black-text color-green">{btnTitle} Article</p>
                         <label htmlFor="title" className={styles.label}>
                             Title
                             </label>
@@ -144,8 +131,8 @@ const ArticleForm = ({ btnTitle, disabled, titleDb, imageUrlDb, descriptionDb, a
                             Author Name
                              </label>
                         <input type="text" id="authorName" className="form-control" value={authorName}
-                            onChange={authorNameChangeHandler} onBlur={authorNameBlurHandler} disabled={disabled} />
-                        {authorNameError ? (<div className={styles.error}>{authorNameErrorMessage}</div>) : null}
+                            disabled={true} />
+
                         <div className="text-center mt-4">
                             <MDBBtn className={styles.btn} type="submit">{btnTitle}</MDBBtn>
                         </div>

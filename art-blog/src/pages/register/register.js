@@ -6,6 +6,7 @@ import styles from './register.module.css';
 import authenticate from '../../utils/authenticate.js';
 import { Link } from 'react-router-dom';
 import AuthContext from '../../Context.js';
+import ErrorBoundary from '../../ErrorBoundary';
 
 const RegisterPage = () => {
     const context = useContext(AuthContext);
@@ -96,6 +97,11 @@ const RegisterPage = () => {
     }
 
     const submitHandler = async (event) => {
+        if(emailError||passwordError||cvError||confirmPasswordError||authorNameError){
+            history.push('/error');
+            return;
+        }
+        
         event.preventDefault();
         await authenticate(
             'http://localhost:9999/user/register',
@@ -115,7 +121,8 @@ const RegisterPage = () => {
     }
 
     return (
-        <PageLayout>
+        <ErrorBoundary>
+             <PageLayout>
             <MDBContainer>
                 <MDBRow >
                     <MDBCol md="12" className="text-center" >
@@ -150,6 +157,8 @@ const RegisterPage = () => {
                 </MDBRow>
             </MDBContainer>
         </PageLayout >
+        </ErrorBoundary>
+       
     );
 }
 

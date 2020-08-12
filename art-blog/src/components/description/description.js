@@ -4,9 +4,9 @@ import styles from './description.module.css';
 const Description = ({ disable, description }) => {
     return (
         <div>
-            <span>Description:</span>
+            <span></span>
             <br />
-            <textarea className={styles.description} rows="15" cols="50" disapled={disable} value={description} />
+            <textarea className={styles.description} rows="16" cols="80" disapled={disable} value={description} />
         </div>
 
     );

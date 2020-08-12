@@ -44,6 +44,10 @@ const passwordBlurHandler = (event) => {
     const context = useContext(AuthContext);
 
    const submitHandler = async (event) => {
+       if(emailError||passwordError){
+           history.push('/error');
+           return;
+       }
         event.preventDefault();
 
         await authenticate('http://localhost:9999/user/login', {
@@ -55,13 +59,11 @@ const passwordBlurHandler = (event) => {
             history.push('/home/');
         }, (err) => {
             console.log('Error', err.message);
-            history.push({
-                pathname:'/error',
-                error:err.message
+           history.push('/error')
             })
-            
-        });
-    }   
+                       
+        }
+       
 
     return (
         <PageLayout title="">

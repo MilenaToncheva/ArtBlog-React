@@ -1,44 +1,39 @@
 import React, { useContext, Fragment } from 'react';
-import { useHistory,Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import styles from './article.module.css';
 import Description from '../../components/description/description.js';
 import AuthContext from '../../Context.js';
-
+import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 
 const Article = ({ pageTitle, title, description, imageUrl, articleId, authorId, authorName, disabled }) => {
-    const history = useHistory();
     const context = useContext(AuthContext);
     const isAuthor = JSON.stringify(context.user.id) === JSON.stringify(authorId);
-    const btnTitle = pageTitle.split(' ')[1];
-
-    console.log('ArticleId: ', articleId);
-
 
     return (
-        <div>
+        <div className={styles.container}>
             <h1 className={styles.title}>{title}</h1>
 
-
-            <div className="row">
-                <div className="column">
-                    <img className="image" src={imageUrl} />
-                </div>
-                <div className="column">
-                <Link to={`/user/profile/${authorId}`}>Author: {authorName}</Link>
-                    <Description disabled={disabled} description={description} />
-                    
-                </div>
-            </div>
+            <MDBContainer className={styles.content}>
+                <MDBRow>
+                    <MDBCol md="6" className={styles.imageCol}>
+                        <div className={styles.imageDiv}>
+                            <img className={styles.image} src={imageUrl} />
+                        </div>
+                    </MDBCol>
+                    <MDBCol md="6" className={styles.infoCol}>
+                        <Description className={styles.description} disabled={disabled} description={description} />
+                        <Link className={styles.authorLink} to={`/user/profile/${authorId}`}>Author: {authorName}</Link>
+                    </MDBCol>
+                </MDBRow>
+            </MDBContainer>
             {isAuthor ?
-                <div id="btnDiv" className="btns">
-                    <Link className={styles.btn} to={`/article/edit-article/${articleId}`}>Edit</Link>
-                    <Link className={styles.btn} to={`/article/delete-article/${articleId}`}>Delete</Link>
+                <div className="btns">
+                    <div className={styles.links}>
+                       <span><Link className={styles.btn} to={`/article/edit-article/${articleId}`}>EDIT</Link></span> 
+                       <span> <Link className={styles.btn} to={`/article/delete-article/${articleId}`}>DELETE</Link></span>
+                    </div>
                 </div> : null}
-
-
-
         </div>
-
     )
 }
 export default Article;

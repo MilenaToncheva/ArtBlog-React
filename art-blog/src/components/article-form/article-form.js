@@ -19,7 +19,7 @@ const ArticleForm = ({ btnTitle, disabled, titleDb, imageUrlDb, descriptionDb, a
     const [imageUrlErrorMessage] = useState('Invalid Url');
     const [description, setDescription] = useState('');
     const [descriptionError, setDescriptionError] = useState(false);
-    const [descriptionErrorMessage] = useState('Description should be between 20 and 100 symbols!');
+    const [descriptionErrorMessage] = useState('Description should be between 20 and 1000 symbols!');
     const [authorName, setAuthorName] = useState(context.user.authorName);
 
     const titleBlurHandler = (event) => {
@@ -49,7 +49,7 @@ const ArticleForm = ({ btnTitle, disabled, titleDb, imageUrlDb, descriptionDb, a
     }
 
     const descriptionBlurHandler = (event) => {
-        if (description.length < 20 || description.length > 100) {
+        if (description.length < 20 || description.length > 1000) {
             setDescriptionError(true);
             return;
         } else if (descriptionError) {
@@ -62,6 +62,11 @@ const ArticleForm = ({ btnTitle, disabled, titleDb, imageUrlDb, descriptionDb, a
     }
 
     const submitHandler = async (event) => {
+        
+        if(titleError||descriptionError||imageUrlError){
+            history.push('/error');
+            return;
+        }
         event.preventDefault();
         console.log('User id:', context.user.id);
 
@@ -74,7 +79,7 @@ const ArticleForm = ({ btnTitle, disabled, titleDb, imageUrlDb, descriptionDb, a
         }
         console.log('Data: ', data)
         if (btnTitle === 'Create') {
-            const article = await articleService.create(data).then((article) => {
+            await articleService.create(data).then((article) => {
                 history.push('/article/my-articles/');
             }).catch(err => {
                 console.log(err);

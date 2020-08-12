@@ -6,11 +6,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App.js';
 import Navigation from './navigation.js';
+import ErrorBoundary from './ErrorBoundary';
 ReactDOM.render(
   <React.StrictMode>
+    <ErrorBoundary>
     <App>
     <Navigation  />
     </App>
+    </ErrorBoundary>
+   
   </React.StrictMode>,
   document.getElementById('root')
 );

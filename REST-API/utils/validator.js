@@ -29,7 +29,7 @@ module.exports = {
         body('description')
             .notEmpty()
             .withMessage('Description should not be empty')
-            .isLength({ max: 100 })
+            .isLength({ max: 1000 })
             .isLength({ min: 20 })
             .withMessage('Description should be between 20 and 100 symbols!')
         ,

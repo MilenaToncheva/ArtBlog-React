@@ -21,16 +21,36 @@ module.exports = {
     },
     post: {
         //POST REGISTER
-        register: (req, res, next) => {
-            const { email, password, authorName, avatar, cv } = req.body;
-            console.log('Email')
-            User.create({ email, password, authorName, avatar, cv })
-                .then((user) => {
-                    const token = jwt.generateToken({ id: user._id });
-                    res.header("Authorization", token).send(user);
-                })
-                .catch(next);
-
+        register: async (req, res, next) => {
+          //  const { email, password, authorName, avatar, cv } = req.body;
+            //  User.findOne({ email }).then((user) => {
+            //      res.status(409).send({ message: `Email ${user.email} already exists! Please try a new one!` })
+            //      return;
+            //  });
+            //  User.create({ email, password, authorName, avatar, cv })
+            //      .then((user) => {
+            //          const token = jwt.generateToken({ id: user._id });
+            //          res.header("Authorization", token).send(user);
+            //      })
+          
+            //      .catch(next);
+            try{
+                const { email, password, authorName, avatar, cv } = req.body;
+                
+                const userDb = await User.findOne({ email });
+                if (userDb) {
+                    console.log('I am here')
+                    res.status(409).send({ message: `Email ${email} already exists! Please try a new one!` })
+                    return;
+                }
+                const user=await  User.create({ email, password, authorName, avatar, cv });
+                const token = jwt.generateToken({ id: user._id });
+                     res.header("Authorization", token).send(user);
+            }catch(err){
+                console.log(err);
+                next(err);
+            }
+           
         },
         //POST VERIFY LOGIN
         verifyLogin: async (req, res, next) => {
@@ -54,7 +74,7 @@ module.exports = {
 
 
                     if (['token expired', 'blacklisted token', 'jwt must be provided'].includes(err.message)) {
-                        res.status(401).send('UNAUTHORIZED!');
+                        res.status(401).send({ message: 'UNAUTHORIZED!' });
                         return;
                     }
 
@@ -66,12 +86,16 @@ module.exports = {
         //POST LOGIN
         login: (req, res, next) => {
             const { email, password } = req.body
-
+            console.log('Password:', password);
+            if (email === '' || password === '  ') {
+                res.status(404).send({ message: 'An email and a password are required!' });
+                return;
+            }
             User.findOne({ email })
                 .then((user) => Promise.all([user, user.passwordsMatch(password)]))
                 .then(([user, match]) => {
                     if (!match) {
-                        res.status(401).send('Invalid password!');
+                        res.status(401).send({ message: 'Invalid credentials!' });
                         return;
                     }
                     const token = jwt.generateToken({ id: user._id });

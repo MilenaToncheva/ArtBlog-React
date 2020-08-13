@@ -14,8 +14,8 @@ const PublicHomePage = () => {
           tempor incididunt ut labore et dolore magna aliqua.
           Ut enim ad minim veniam.
           </p>
-        <p> Please <Link to="/user/login">login</Link> to gain access to our articles</p>
-        <p>If you don't have an account, <Link to="/user/register">click</Link> here to Register</p>
+        <p className={styles.text}> Please <Link className={styles.link} to="/user/login">login</Link> to gain access to our articles</p>
+        <p className={styles.text}>If you don't have an account, <Link className={styles.link} to="/user/register">click</Link> here to Register</p>
       </div>
     </PageLayout>
   );

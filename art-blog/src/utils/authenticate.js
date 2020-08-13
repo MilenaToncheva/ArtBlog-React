@@ -7,12 +7,12 @@ const authenticate = async (url, body, onSuccess, onFailure) => {
                 'Content-Type': 'application/json'
             }
         });
-       // console.log(promise);
         const authToken = promise.headers.get('Authorization');
         //console.log('authToken',authToken);
         document.cookie = `auth=${authToken}`;
         const response = await promise.json();
-       console.log('response',response);
+       console.log('response',response.message);
+       
         if (response.email && authToken) {
             onSuccess({
                 email: response.email,
@@ -20,11 +20,14 @@ const authenticate = async (url, body, onSuccess, onFailure) => {
                 authorName:response.authorName
             })
         } else {
-
-            onFailure();
+const message=response.message;
+console.log('I am in else');
+            onFailure(message);
 
         }
     } catch (err) {
+        console.log('I am in catch')
+        console.log('Err',err)
         onFailure(err);
     }
 }

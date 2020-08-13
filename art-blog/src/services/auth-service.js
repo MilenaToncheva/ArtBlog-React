@@ -7,12 +7,14 @@ const authService = async (url, body, onSuccess, onFailure) => {
                 'Content-Type': 'application/json'
             }
         });
-       // console.log(promise);
+
         const authToken = promise.headers.get('Authorization');
-        console.log('authToken',authToken);
+        
         document.cookie = `auth=${authToken}`;
+       console.log('Promise message get', promise.get(message));
         const response = await promise.json();
-       // console.log('response',response);
+        console.log('response',response.message);
+        
         if (response.email && authToken) {
             onSuccess({
                 email: response.email,
@@ -20,10 +22,13 @@ const authService = async (url, body, onSuccess, onFailure) => {
             })
         } else {
 
-            onFailure();
+const message=response.text();
+console.log('message-in service',message);
+            onFailure(message);
 
         }
     } catch (err) {
+       
         onFailure(err);
     }
 }

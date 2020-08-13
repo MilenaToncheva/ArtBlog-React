@@ -17,11 +17,11 @@ const LoginPage = () => {
     const [passwordErrorMessage, setPasswordErrorMessage] = useState('Invalid credentials!');
     const history = useHistory();
 
-   const emailChangeHandler = (event) => {
+    const emailChangeHandler = (event) => {
         setEmail(event.target.value);
     }
-   const emailBlurHandler = (event) => {
-    
+    const emailBlurHandler = (event) => {
+
         if (!email.includes('@') || email.length < 3) {
             setEmailError(true);
             return;
@@ -29,10 +29,10 @@ const LoginPage = () => {
             setEmailError(false);
         }
     }
-  const  passwordChangeHandler = (event) => {
+    const passwordChangeHandler = (event) => {
         setPassword(event.target.value);
     }
-const passwordBlurHandler = (event) => {
+    const passwordBlurHandler = (event) => {
         if (password.length < 3) {
             setPasswordError(true);
             return;
@@ -43,11 +43,13 @@ const passwordBlurHandler = (event) => {
 
     const context = useContext(AuthContext);
 
-   const submitHandler = async (event) => {
-       if(emailError||passwordError){
-           history.push('/error');
-           return;
-       }
+    const submitHandler = async (event) => {
+        if (emailError || passwordError) {
+            history.push('/error', {
+                message: 'Invalid input!'
+            });
+            return;
+        }
         event.preventDefault();
 
         await authenticate('http://localhost:9999/user/login', {
@@ -55,15 +57,20 @@ const passwordBlurHandler = (event) => {
             password
         }, (user) => {
             context.logIn(user);
-            
+
             history.push('/home/');
         }, (err) => {
-            console.log('Error', err.message);
-           history.push('/error')
-            })
-                       
-        }
-       
+            
+                history.push('/error', {
+                    message: err.message || err
+                })
+            
+            }
+
+        )
+
+    }
+
 
     return (
         <PageLayout title="">
@@ -74,11 +81,11 @@ const passwordBlurHandler = (event) => {
                             <h1>Login</h1>
                             <div className="black-text">
 
-                                <MDBInput label="Email" group type="email" value={email} onChange={emailChangeHandler} 
-                                                                                                    onBlur={emailBlurHandler} />
+                                <MDBInput label="Email" group type="email" value={email} onChange={emailChangeHandler}
+                                    onBlur={emailBlurHandler} />
                                 {emailError ? (<div className={styles.error}>{emailErrorMessage}</div>) : null}
-                                <MDBInput label="Password" group type="password" value={password} onChange={passwordChangeHandler} 
-                                                                                                    onBlur={passwordBlurHandler} />
+                                <MDBInput label="Password" group type="password" value={password} onChange={passwordChangeHandler}
+                                    onBlur={passwordBlurHandler} />
                                 {passwordError ? (<div className={styles.error}>{passwordErrorMessage}</div>) : null}
                             </div>
                             <div className="text-center">

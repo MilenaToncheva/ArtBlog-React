@@ -35,6 +35,7 @@ module.exports = {
     createArticle: (req, res, next) => {
 
         const { title, description, imageUrl, authorName } = req.body;
+        
         const { _id } = req.user._id;
         Article.create({ title, description, imageUrl, authorName, author: _id }).
             then((createdArticle) => {

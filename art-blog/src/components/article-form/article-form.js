@@ -7,8 +7,8 @@ import articleService from '../../services/article-serivce.js'
 
 const ArticleForm = ({ btnTitle, disabled, titleDb, imageUrlDb, descriptionDb, authorNameDb, articleId }) => {
     const context = useContext(AuthContext);
-    console.log('Context', context);
-    console.log(context.user.authorName);
+   // console.log('Context', context);
+   // console.log(context.user.authorName);
 
     const history = useHistory();
     const [title, setTitle] = useState('');
@@ -62,13 +62,17 @@ const ArticleForm = ({ btnTitle, disabled, titleDb, imageUrlDb, descriptionDb, a
     }
 
     const submitHandler = async (event) => {
+        console.log('IamgeUrl',imageUrl);
+        if(titleError||descriptionError||imageUrlError||title===''||description===''||imageUrl===''){
+            console.log('I am in err-create-submit');
+            history.push('/error',{
+                message: 'Invalid input!'
+            });
         
-        if(titleError||descriptionError||imageUrlError){
-            history.push('/error');
             return;
         }
         event.preventDefault();
-        console.log('User id:', context.user.id);
+       // console.log('User id:', context.user.id);
 
         const data = {
             title,
@@ -82,7 +86,8 @@ const ArticleForm = ({ btnTitle, disabled, titleDb, imageUrlDb, descriptionDb, a
             await articleService.create(data).then((article) => {
                 history.push('/article/my-articles/');
             }).catch(err => {
-                console.log(err);
+                console.log(err.message);
+                history.push('/error',{message: err.message||err});
             })
         } else if (btnTitle === 'Edit') {
             await articleService.edit(articleId, data).then((article) => {

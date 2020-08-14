@@ -1,13 +1,11 @@
-import React, { useContext, useState, useEffect, Fragment } from 'react';
+import React, {  useState, useEffect, Fragment } from 'react';
 import styles from './articles.module.css'
 import articleService from '../../services/article-serivce.js';
-import PageLayout from '../../components/core/page-layout/page-layout';
-import AuthContext from '../../Context.js';
 import ArticleCard from '../../components/card/card.js';
 import { MDBRow } from 'mdbreact';
 
 const Articles = ({ myArticles }) => {
-    const context = useContext(AuthContext);
+   // const context = useContext(AuthContext);
     const [articleCards, setArticleCards] = useState([]);
 
 

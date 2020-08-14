@@ -39,7 +39,6 @@ module.exports = {
                 
                 const userDb = await User.findOne({ email });
                 if (userDb) {
-                    console.log('I am here')
                     res.status(409).send({ message: `Email ${email} already exists! Please try a new one!` })
                     return;
                 }

@@ -13,23 +13,23 @@ const RegisterPage = () => {
     const history = useHistory();
     const [email, setEmail] = useState('');
     const [emailError, setEmailError] = useState(false);
-    const [emailErrorMessage, setEmailErrorMessage] = useState('Invalid email!');
+    const [emailErrorMessage] = useState('Invalid email!');
     const [password, setPassword] = useState('');
     const [passwordError, setPasswordError] = useState(false);
-    const [passwordErrorMessage, setPasswordErrorMessage]
+    const [passwordErrorMessage]
         = useState('Password should be at least 3 symbols and should contain only letters and digits!');
     const [cv, setCv] = useState('');
     const [cvError, setCvError] = useState(false);
-    const [cvErrorMessage, setCvErrorMessage] = useState('Invalid cv! Should be at least 10 symbols long!')
+    const [cvErrorMessage] = useState('Invalid cv! Should be at least 10 symbols long!')
     const [avatar, setAvatar] = useState('');
 
     const [confirmPassword, setConfirmPassword] = useState('');
     const [confirmPasswordError, setConfirmPasswordError] = useState(false);
-    const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage]
+    const [confirmPasswordErrorMessage]
         = useState('Both passwords do not match!');
     const [authorName, setAuthorName] = useState('');
     const [authorNameError, setAuthorNameError] = useState(false);
-    const [authorNameErrorMessage, setAuthorNameErrorMessage] = useState('Invalid Author name! The name should be at least 3 symbols!');
+    const [authorNameErrorMessage] = useState('Invalid Author name! The name should be at least 3 symbols!');
     const emailChangeHandler = (event) => {
         setEmail(event.target.value);
     }

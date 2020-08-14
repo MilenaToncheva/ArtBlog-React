@@ -44,6 +44,7 @@ const articleService = {
             },
             body: JSON.stringify(data)
         });
+
     },
     delete: async function (id) {
 

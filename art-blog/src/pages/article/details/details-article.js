@@ -22,7 +22,7 @@ const DetailsArticlePage = () => {
     useEffect(() => {
         getArticleById(id);
         return () => { }
-    }, [])
+    }, [id])
 
 
 

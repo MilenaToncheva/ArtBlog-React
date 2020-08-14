@@ -11,10 +11,10 @@ import AuthContext from '../../Context.js';
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [emailError, setEmailError] = useState(false);
-    const [emailErrorMessage, setEmailErrorMessage] = useState('Invalid email!');
+    const [emailErrorMessage] = useState('Invalid email!');
     const [password, setPassword] = useState('');
     const [passwordError, setPasswordError] = useState(false);
-    const [passwordErrorMessage, setPasswordErrorMessage] = useState('Invalid credentials!');
+    const [passwordErrorMessage] = useState('Invalid credentials!');
     const history = useHistory();
 
     const emailChangeHandler = (event) => {

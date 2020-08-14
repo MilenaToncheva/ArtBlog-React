@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
 import PageLayout from '../../../components/core/page-layout/page-layout.js';
 import ArticleForm from '../../../components/article-form/article-form.js';
 const CreateArticlePage = () => {

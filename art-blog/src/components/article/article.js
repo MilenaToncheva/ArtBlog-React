@@ -1,5 +1,5 @@
-import React, { useContext, Fragment } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import React, { useContext} from 'react';
+import {  Link } from 'react-router-dom';
 import styles from './article.module.css';
 import Description from '../../components/description/description.js';
 import AuthContext from '../../Context.js';
@@ -17,7 +17,7 @@ const Article = ({ pageTitle, title, description, imageUrl, articleId, authorId,
                 <MDBRow>
                     <MDBCol md="6" className={styles.imageCol}>
                         <div className={styles.imageDiv}>
-                            <img className={styles.image} src={imageUrl} />
+                            <img className={styles.image} src={imageUrl} alt="art" />
                         </div>
                     </MDBCol>
                     <MDBCol md="6" className={styles.infoCol}>

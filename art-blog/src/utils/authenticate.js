@@ -11,23 +11,22 @@ const authenticate = async (url, body, onSuccess, onFailure) => {
         //console.log('authToken',authToken);
         document.cookie = `auth=${authToken}`;
         const response = await promise.json();
-       console.log('response',response.message);
-       
+        //console.log('response',response.message);
+
         if (response.email && authToken) {
             onSuccess({
                 email: response.email,
                 id: response._id,
-                authorName:response.authorName
+                authorName: response.authorName
             })
         } else {
-const message=response.message;
-console.log('I am in else');
+            const message = response.message;
+
             onFailure(message);
 
         }
     } catch (err) {
-        console.log('I am in catch')
-        console.log('Err',err)
+
         onFailure(err);
     }
 }

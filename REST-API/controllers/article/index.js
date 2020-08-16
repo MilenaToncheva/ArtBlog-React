@@ -32,21 +32,38 @@ module.exports = {
             .catch(next);
     },
 
-    createArticle: (req, res, next) => {
+    createArticle: async (req, res, next) => {
 
-        const { title, description, imageUrl, authorName } = req.body;
-        
-        const { _id } = req.user._id;
-        Article.create({ title, description, imageUrl, authorName, author: _id }).
-            then((createdArticle) => {
-                Promise.all([
-                    User.updateOne({ _id }, { $push: { articles: createdArticle._id } }),
-                    Article.findOne({ _id: createdArticle._id })
-                ]);
-            })
-            .then(([updatedUser, createdArticle]) => {
-                res.send(createdArticle)
-            }).catch(next);
+        //const { title, description, imageUrl, authorName } = req.body;
+        //
+        //const { _id } = req.user._id;
+        //Article.create({ title, description, imageUrl, authorName, author: _id }).
+        //    then((createdArticle) => {
+        //        Promise.all([
+        //            User.updateOne({ _id }, { $push: { articles: createdArticle._id } }),
+        //            Article.findOne({ _id: createdArticle._id })
+        //        ]);
+        //    })
+        //    .then(([updatedUser, createdArticle]) => {
+        //        res.send(createdArticle)
+        //    }).catch(next);
+        try {
+            const { title, description, imageUrl, authorName } = req.body;
+            const { _id } = req.user._id;
+            const articleDb = await Article.findOne({ title });
+            if (articleDb) {
+                res.status(409).send({ message: `Title ${title} already exists! Please try a new one!` })
+                return;
+            }
+           const createdArticle= await Article.create({ title, description, imageUrl, authorName, author: _id });
+            await User.updateOne({ _id }, { $push: { articles: createdArticle._id } });
+            const article=await Article.findOne({ _id: createdArticle._id });
+            res.send(article);
+        } catch (err) {
+            console.log(err);
+            next(err);
+        }
+
     },
 
     editArticle: async (req, res, next) => {
@@ -61,7 +78,7 @@ module.exports = {
     deleteArticle: (req, res, next) => {
         const _id = req.params._id;
         console.log('I am in delete');
-        Article.findByIdAndDelete( _id )
+        Article.findByIdAndDelete(_id)
             .then((deletedArticle) => {
                 console.log('deleted:', deletedArticle);
                 res.send(deletedArticle);

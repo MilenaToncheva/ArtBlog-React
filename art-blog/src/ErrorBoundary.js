@@ -19,7 +19,7 @@ componentDidCatch(error, errorInfo) {
   }
 render(){
     
-        if(this.state.errorInfo){
+        if(this.state.hasError){
             window.location.href('/error');
             return null;
         }

@@ -83,12 +83,18 @@ const ArticleForm = ({ btnTitle, disabled, titleDb, imageUrlDb, descriptionDb, a
         }
         console.log('Data: ', data)
         if (btnTitle === 'Create') {
-            await articleService.create(data).then((article) => {
+           const promise= await articleService.create(data);
+           const res=await promise.json();
+                console.log('rES',res);
+               
+                if(!res.title){
+                    const message=res.message;
+                    history.push('/error',{
+                        message
+                    })
+                }
                 history.push('/article/my-articles/');
-            }).catch(err => {
-                console.log(err.message);
-                history.push('/error',{message: err.message||err});
-            })
+            
         } else if (btnTitle === 'Edit') {
             await articleService.edit(articleId, data).then((article) => {
                 history.push('/article/my-articles');

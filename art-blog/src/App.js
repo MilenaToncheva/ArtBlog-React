@@ -7,9 +7,9 @@ const App = (props) => {
 
     const [user, setUser] = useState({email:'',id:'',authorName:''});
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-   const[isLoading,setIsLoading]=useState(true);
+  // const[isLoading,setIsLoading]=useState(true);
     const logIn = (user) => {
-        console.log('User in App Login: ',user)
+        //console.log('User in App Login: ',user)
         setIsLoggedIn(true);
         setUser({...user,email:user.email,id:user.id, authorName:user.authorName});
        
@@ -25,7 +25,7 @@ const App = (props) => {
         const token = getCookie('auth');
         if (!token || token === '') {
             logOut();
-            setIsLoading(false);
+          //  setIsLoading(false);
             return;
         }
 
@@ -54,7 +54,7 @@ const App = (props) => {
             } else {
                 logOut();
             }
-            setIsLoading(false);
+           // setIsLoading(false);
         });
 
        
